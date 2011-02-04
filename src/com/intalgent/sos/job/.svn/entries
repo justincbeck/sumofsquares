@@ -1,0 +1,41 @@
+8
+
+dir
+9
+svn+ssh://svn.beckproduct.com/svnroot/sumofsquares/trunk/src/com/intalgent/sos/job
+svn+ssh://svn.beckproduct.com/svnroot/sumofsquares
+
+
+
+2007-06-19T21:44:39.379994Z
+3
+jbeck
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+749359f4-15cd-4343-ab09-22cd986fdae2
+
+SquaresJob.java
+file
+
+
+
+
+2008-04-17T18:15:25.000000Z
+a10425f674436eeb5aa886daac029abc
+2007-06-19T21:44:39.379994Z
+3
+jbeck
+has-props
+

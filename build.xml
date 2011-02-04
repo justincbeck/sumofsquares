@@ -1,0 +1,123 @@
+<project name="sumofsquares" default="default" basedir=".">
+
+	<property name="lib.dir" location="lib" />
+	<property file="${lib.dir}/lib.properties" />
+	
+	<property name="base.dir" value="." />
+	<property name="archive.dir" value="archive" />
+	<property name="conf.dir" value="conf" />
+	<property name="src.dir" value="src" />	
+	<property name="build.dir" value="build" />
+	<property name="dist.dir" value="dist" />
+	<property name="lib.dir" value="lib" />
+
+	<path id="log4j.classpath">
+		<fileset dir="${log4j.dir}" includes="*.jar" />
+	</path>
+
+	<path id="junit.classpath">
+		<fileset dir="${junit.dir}" includes="*.jar" />
+	</path>
+
+	<path id="computefarm.classpath">
+		<fileset dir="${computefarm.dir}" includes="*.jar" />
+	</path>
+
+	<path id="build.classpath">
+		<path refid="log4j.classpath" />
+		<path refid="junit.classpath" />
+		<path refid="computefarm.classpath" />
+	</path>
+
+	<target name="prepare">
+		<tstamp />
+		<mkdir dir="${archive.dir}" />
+		<mkdir dir="${build.dir}" />
+		<mkdir dir="${dist.dir}" />
+	</target>
+
+	<target name="compile" depends="prepare">
+		<javac destdir="${build.dir}" deprecation="on" debug="true">
+			<classpath refid="build.classpath" />
+			<src path="${src.dir}" />
+		</javac>
+	</target>
+	
+	<pathconvert dirsep="/" pathsep=" " property="jar.classpath">
+		<map from="${log4j.dir}" to="."/>
+		<map from="${junit.dir}" to="."/>
+		<map from="${computefarm.dir}" to="."/>
+		<path>
+			<fileset dir="${log4j.dir}" includes="*.jar" />
+			<fileset dir="${junit.dir}" includes="*.jar" />
+			<fileset dir="${computefarm.dir}" includes="*.jar" />
+		</path>
+	</pathconvert>
+	
+	<target name="dist" depends="compile, prepare" description="generate the distribution" >
+		<mkdir dir="${build.dir}/conf"/>
+		<copy todir="${build.dir}/conf">
+			<fileset dir="${conf.dir}" includes="policy.all" />
+		</copy>
+		
+		<jar jarfile="${dist.dir}/sumofsquares-0.0.1.jar"
+			basedir="${build.dir}"
+			excludes="**/*Test.class"
+			filesonly="true">
+			
+			<manifest>
+				<attribute name="Main-Class" value="com.intalgent.sos.client.SquaresClient"/>
+				<attribute name="Class-Path" value="${jar.classpath}"/>
+			</manifest>
+		</jar>
+		
+		<delete dir="${build.dir}/conf"/>
+	</target>
+	
+	<target name="tar" depends="dist">
+		<mkdir dir="tmp"/>
+		<mkdir dir="tmp/conf"/>
+		<mapper type="flatten"/>
+		
+		<copy todir="tmp/conf">
+			<fileset dir="${conf.dir}" includes="policy.all" />
+		</copy>
+		
+		<copy todir="tmp">
+			<fileset dir="${dist.dir}" includes="*.jar" />
+			<fileset dir="${log4j.dir}" includes="*.jar" />
+			<fileset dir="${junit.dir}" includes="*.jar" />
+			<fileset dir="${computefarm.dir}" includes="*.jar" />
+			<fileset dir="${conf.dir}" includes="readme.txt" />
+		</copy>
+		
+		<tar tarfile="${archive.dir}/sumofsquares.tar"
+		    basedir="tmp"
+		    includes="*.jar, *.txt, **/policy.all, **/conf/policy.all">
+		</tar>
+		
+		<delete dir="tmp"/>
+		
+	</target>
+	
+	<target name="clean">
+		<delete file="${archive.dir}/sumofsquares.tar" />
+		<delete dir="${build.dir}" />
+		<delete dir="${dist.dir}" />
+	</target>
+
+	<target name="squares">
+		<java classname="com.intalgent.sos.client.SquaresClient" fork="true">
+			<arg value="4" />
+			<jvmarg value="-Djava.security.policy=conf/policy.all" />
+			<classpath>
+				<path refid="build.classpath" />
+				<pathelement path="${dist.dir}/sumofsquares-0.0.1.jar"/>
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="default" depends="tar" />
+
+</project>
+

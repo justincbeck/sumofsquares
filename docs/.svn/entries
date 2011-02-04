@@ -1,0 +1,40 @@
+8
+
+dir
+9
+svn+ssh://svn.beckproduct.com/svnroot/sumofsquares/trunk/docs
+svn+ssh://svn.beckproduct.com/svnroot/sumofsquares
+
+
+
+2007-06-20T13:34:46.665750Z
+7
+jbeck
+
+
+svn:special svn:externals svn:needs-lock
+
+
+
+
+
+
+
+
+
+
+
+749359f4-15cd-4343-ab09-22cd986fdae2
+
+README.txt
+file
+
+
+
+
+2008-04-17T18:15:25.000000Z
+2e3fd032ba9e9c0c0faa6b25ce5e939c
+2007-06-20T13:34:46.665750Z
+7
+jbeck
+
