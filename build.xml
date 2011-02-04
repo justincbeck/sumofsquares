@@ -117,7 +117,7 @@
 	</target>
 
 	<target name="squares">
-		<java classname="com.intalgent.sos.client.SquaresClient" fork="true">
+		<java classname="com.beckproduct.sos.client.SquaresClient" fork="true">
 			<arg value="4" />
 			<jvmarg value="-Djava.security.policy=conf/policy.all" />
 			<classpath>
