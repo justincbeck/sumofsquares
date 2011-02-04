@@ -1,4 +1,4 @@
-package com.intalgent.sos.task;
+package com.beckproduct.sos.task;
 
 import java.io.Serializable;
 
@@ -17,6 +17,6 @@ public class SquaresTask implements Serializable, Task
 
     public Object execute()
     {
-        return new Double(k * k);
+        return k * k;
     }
 }

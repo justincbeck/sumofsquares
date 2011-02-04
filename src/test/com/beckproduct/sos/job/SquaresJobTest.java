@@ -1,12 +1,10 @@
-package com.intalgent.sos.test.unit;
+package com.beckproduct.sos.job;
 
 import junit.framework.TestCase;
 
 import org.tiling.computefarm.JobRunner;
 import org.tiling.computefarm.JobRunnerFactory;
 import org.tiling.computefarm.impl.simple.SimpleJobRunnerFactory;
-
-import com.intalgent.sos.job.SquaresJob;
 
 public class SquaresJobTest extends TestCase
 {

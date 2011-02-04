@@ -27,22 +27,32 @@
 		<path refid="log4j.classpath" />
 		<path refid="junit.classpath" />
 		<path refid="computefarm.classpath" />
+        <pathelement path="${build.dir}/main" />
 	</path>
 
 	<target name="prepare">
 		<tstamp />
 		<mkdir dir="${archive.dir}" />
-		<mkdir dir="${build.dir}" />
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${build.dir}/main" />
+        <mkdir dir="${build.dir}/test" />
 		<mkdir dir="${dist.dir}" />
 	</target>
 
 	<target name="compile" depends="prepare">
-		<javac destdir="${build.dir}" deprecation="on" debug="true">
+		<javac destdir="${build.dir}/main" deprecation="on" debug="true">
 			<classpath refid="build.classpath" />
-			<src path="${src.dir}" />
+			<src path="${src.dir}/main" />
 		</javac>
 	</target>
 	
+    <target name="compile-test" depends="prepare">
+        <javac destdir="${build.dir}/test" deprecation="on" debug="true">
+            <classpath refid="build.classpath" />
+            <src path="${src.dir}/test" />
+        </javac>
+    </target>
+
 	<pathconvert dirsep="/" pathsep=" " property="jar.classpath">
 		<map from="${log4j.dir}" to="."/>
 		<map from="${junit.dir}" to="."/>

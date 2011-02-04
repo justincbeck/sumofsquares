@@ -1,4 +1,4 @@
-package com.intalgent.sos.client;
+package com.beckproduct.sos.client;
 
 import java.io.IOException;
 
@@ -8,7 +8,7 @@ import org.tiling.computefarm.JobRunner;
 import org.tiling.computefarm.JobRunnerFactory;
 import org.tiling.computefarm.impl.javaspaces.util.ClasspathServer;
 
-import com.intalgent.sos.job.SquaresJob;
+import com.beckproduct.sos.job.SquaresJob;
 
 public class SquaresClient
 {
@@ -24,13 +24,14 @@ public class SquaresClient
             System.exit(1);
         }
 
-        ClasspathServer server = null;
         try {
-            server = new ClasspathServer();
+            ClasspathServer server = new ClasspathServer();
+            server.start();
         } catch (IOException e) {
-            logger.error("Error creating ClasspathServer...");
+            logger.error("Error creating ClasspathServer...", e);
+        } catch (NullPointerException e) {
+            logger.error("Error creating ClasspathServer...", e);
         }
-        server.start();
 
 		logger.info("Server started");
 

@@ -1,4 +1,4 @@
-package com.intalgent.sos.job;
+package com.beckproduct.sos.job;
 
 import org.tiling.computefarm.CancelledException;
 import org.tiling.computefarm.CannotTakeResultException;
@@ -6,7 +6,7 @@ import org.tiling.computefarm.CannotWriteTaskException;
 import org.tiling.computefarm.ComputeSpace;
 import org.tiling.computefarm.Job;
 
-import com.intalgent.sos.task.SquaresTask;
+import com.beckproduct.sos.task.SquaresTask;
 
 public class SquaresJob implements Job
 {
@@ -39,7 +39,7 @@ public class SquaresJob implements Job
         for (int i = 1; i <= n; i++) {
             try {
                 Double result = (Double) space.take();
-                sum += result.doubleValue();
+                sum += result;
             } catch (CannotTakeResultException e) {
                 break;
             } catch (CancelledException e) {
